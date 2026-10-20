@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Find Your Perfect Hot Tub | Generation Hot Tubs Factory Sale</title>
+<meta name="description" content="Five questions, about a minute. Generation Hot Tubs matches you to the right tub and holds your Factory Pass for the November 5 to 7 sale in McMinnville, TN.">
+<link rel="icon" href="img/Generation-Hot-Tub-Logo-Circle.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="quiz-page">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Back to the Factory Sale page">
+      <img src="img/Generation-Hot-Tub-Logo-Circle.png" alt="">
+      <span class="name">Generation Hot Tubs <small>Factory Sale &middot; Nov 5 to 7</small></span>
+    </a>
+    <div class="actions">
+      <a class="phone" data-ght-href="phoneHref" href="tel:+19314142908">Prefer to talk? <b data-ght="phone">931-414-2908</b></a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap quiz-layout">
+  <section aria-live="polite">
+    <div class="progress">
+      <span id="step-label">Question 1 of 5</span>
+      <span class="bar"><i id="bar"></i></span>
+      <span id="pct">0%</span>
+    </div>
+
+    <!-- Intro (shown with question 1) -->
+    <div id="intro" class="q" style="margin-top:22px;gap:10px">
+      <p class="eyebrow">Free &middot; About a minute</p>
+      <h1 class="h-section">Find your perfect hot tub.</h1>
+      <p class="help">Five quick questions. We match you to the Generation tub that fits your people, your space and how you will use it, and we hold your Factory Pass for the sale.</p>
+    </div>
+
+    <!-- Questions -->
+    <div class="q" data-q="people" hidden>
+      <h2>Who is getting in?</h2>
+      <p class="help">Think about a normal evening, not the one party a year.</p>
+      <div class="opts">
+        <button class="opt" type="button" data-v="p1"><span class="key">A</span><span>Just me</span></button>
+        <button class="opt" type="button" data-v="p2"><span class="key">B</span><span>Me and one other</span></button>
+        <button class="opt" type="button" data-v="p3"><span class="key">C</span><span>Family or friends, 3 to 5</span></button>
+        <button class="opt" type="button" data-v="p4"><span class="key">D</span><span>A crowd, 6 or more</span></button>
+      </div>
+    </div>
+
+    <div class="q" data-q="purpose" hidden>
+      <h2>What is it mostly for?</h2>
+      <p class="help">Pick the one that is closest. This decides seat depth and jet layout.</p>
+      <div class="opts">
+        <button class="opt" type="button" data-v="r1"><span class="key">A</span><span>Unwinding at the end of the day</span></button>
+        <button class="opt" type="button" data-v="r2"><span class="key">B</span><span>A sore back, stiff joints, recovery<small>Hydrotherapy seats and more jets</small></span></button>
+        <button class="opt" type="button" data-v="r3"><span class="key">C</span><span>Time with family and friends</span></button>
+        <button class="opt" type="button" data-v="r4"><span class="key">D</span><span>Swimming and exercise<small>That points to a swim spa</small></span></button>
+      </div>
+    </div>
+
+    <div class="q" data-q="space" hidden>
+      <h2>Where will it live?</h2>
+      <p class="help">Our tubs run from 77 inches square to 92 inches square. Rough is fine.</p>
+      <div class="opts">
+        <button class="opt" type="button" data-v="s1"><span class="key">A</span><span>A small patio or deck</span></button>
+        <button class="opt" type="button" data-v="s2"><span class="key">B</span><span>An average backyard</span></button>
+        <button class="opt" type="button" data-v="s3"><span class="key">C</span><span>Plenty of room</span></button>
+        <button class="opt" type="button" data-v="s4"><span class="key">D</span><span>Not sure yet, I need help with placement</span></button>
+      </div>
+    </div>
+
+    <div class="q" data-q="features" hidden>
+      <h2>What matters most to you?</h2>
+      <p class="help">This picks between the Classic and Signature series.</p>
+      <div class="opts">
+        <button class="opt" type="button" data-v="f1"><span class="key">A</span><span>Maximum jets and massage</span></button>
+        <button class="opt" type="button" data-v="f2"><span class="key">B</span><span>Simple, reliable, easy to maintain</span></button>
+        <button class="opt" type="button" data-v="f3"><span class="key">C</span><span>Lights, the waterfall, the extras</span></button>
+        <button class="opt" type="button" data-v="f4"><span class="key">D</span><span>The lowest price that still lasts</span></button>
+      </div>
+    </div>
+
+    <div class="q" data-q="timing" hidden>
+      <h2>When do you want to be soaking?</h2>
+      <p class="help">Honest answer. It only changes how we follow up.</p>
+      <div class="opts">
+        <button class="opt" type="button" data-v="t1"><span class="key">A</span><span>As soon as the sale. Before Thanksgiving.</span></button>
+        <button class="opt" type="button" data-v="t2"><span class="key">B</span><span>Before Christmas</span></button>
+        <button class="opt" type="button" data-v="t3"><span class="key">C</span><span>Sometime this winter</span></button>
+        <button class="opt" type="button" data-v="t4"><span class="key">D</span><span>Just looking right now</span></button>
+      </div>
+    </div>
+
+    <!-- Contact step -->
+    <form class="q" id="contact" data-lead-form="quiz" data-next="thank-you.html" novalidate hidden>
+      <div>
+        <p class="eyebrow">Last step</p>
+        <h2>Where should we send your match and your pass?</h2>
+        <p class="help" style="margin-top:10px">Your match shows on the next screen. Your Factory Pass and the sale price sheet come by email, and a team member will call to answer any questions before the sale.</p>
+      </div>
+      <div class="form">
+        <div class="grid-2">
+          <div class="field" data-req>
+            <label for="first_name">First name</label>
+            <input id="first_name" name="first_name" type="text" autocomplete="given-name" required>
+            <span class="err">Please add your first name.</span>
+          </div>
+          <div class="field" data-req>
+            <label for="last_name">Last name</label>
+            <input id="last_name" name="last_name" type="text" autocomplete="family-name" required>
+            <span class="err">Please add your last name.</span>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field" data-req>
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(931) 555-0123" required>
+            <span class="err">Please enter a 10-digit phone number.</span>
+          </div>
+          <div class="field" data-req>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required>
+            <span class="err">Please enter a valid email.</span>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="zip">ZIP code</label>
+            <input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="37110">
+          </div>
+          <div class="field">
+            <label for="pay">How would you like to pay?</label>
+            <select id="pay" name="payment_preference">
+              <option value="financing">Monthly, with 0% financing</option>
+              <option value="full">Pay in full</option>
+              <option value="unsure" selected>Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <label class="consent">
+          <input type="checkbox" name="email_consent" id="consent">
+          <span>Email me my Factory Pass, the sale price sheet and sale updates from Generation Hot Tubs. A team member may also call about my visit. Consent is not a condition of purchase. Unsubscribe any time. <a data-ght-href="privacyUrl" href="https://generationhottubs.com/privacy-notice/" target="_blank" rel="noopener">Privacy notice</a>.</span>
+        </label>
+        <input type="hidden" name="source" value="perfect-hot-tub-quiz">
+        <button class="btn btn-gold btn-block" type="submit">Show my match &amp; hold my pass</button>
+        <p class="form-note">Your info stays with Generation Hot Tubs. No lists, no resale.</p>
+      </div>
+    </form>
+
+    <div class="q-nav">
+      <button class="linkbtn" type="button" id="back" hidden>&larr; Back</button>
+      <span class="form-note" id="hint">Tap an answer to continue</span>
+    </div>
+  </section>
+
+  <aside class="quiz-side">
+    <div class="ticket flat" aria-hidden="true">
+      <div class="t-head">
+        <span class="lbl">Generation Hot Tubs <b>Factory Pass</b></span>
+        <img src="img/Generation-Hot-Tub-Logo-Circle.png" alt="">
+      </div>
+      <div class="t-body">
+        <div class="f wide"><span class="l">Pass holder</span><span class="v" id="t-name">Your name here</span></div>
+        <div class="f"><span class="l">Dates</span><span class="v">Nov 5 / 6 / 7</span></div>
+        <div class="f"><span class="l">Doors</span><span class="v">9:00 am</span></div>
+        <div class="f wide"><span class="l">Your match</span><span class="v" id="t-match">Answer 5 questions</span></div>
+      </div>
+      <div class="t-foot">
+        <span class="stamp">Pass holder</span>
+        <span class="barcode"></span>
+        <span>300 Garfield St</span>
+      </div>
+    </div>
+    <div class="side-card">
+      <h3>What the pass gets you</h3>
+      <ul>
+        <li>The full sale price sheet on <span data-ght="priceSheetDay">Wednesday, November 4</span>, a day before anyone else.</li>
+        <li>First call on floor models Thursday morning.</li>
+        <li>A link to apply for 0% financing before the event.</li>
+      </ul>
+    </div>
+  </aside>
+</main>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script>
+(function () {
+  var order = ["people", "purpose", "space", "features", "timing"];
+  var answers = {};
+  var step = 0; // 0..4 questions, 5 = contact
+  var qs = {};
+  order.forEach(function (k) { qs[k] = document.querySelector('[data-q="' + k + '"]'); });
+  var intro = document.getElementById("intro");
+  var contact = document.getElementById("contact");
+  var back = document.getElementById("back");
+  var hint = document.getElementById("hint");
+  var bar = document.getElementById("bar");
+  var pct = document.getElementById("pct");
+  var label = document.getElementById("step-label");
+  var tMatch = document.getElementById("t-match");
+  var tName = document.getElementById("t-name");
+
+  window.GHTQuizAnswers = function () { return answers; };
+
+  function render() {
+    order.forEach(function (k, i) { qs[k].hidden = (i !== step); });
+    intro.hidden = step !== 0;
+    contact.hidden = step !== 5;
+    back.hidden = step === 0;
+    hint.hidden = step === 5;
+    var done = Math.min(step, 5);
+    bar.style.width = (done / 5 * 100) + "%";
+    pct.textContent = Math.round(done / 5 * 100) + "%";
+    label.textContent = step < 5 ? "Question " + (step + 1) + " of 5" : "Last step";
+    if (step >= 3 && window.GHTLead) tMatch.textContent = window.GHTLead.match(answers).name;
+    if (step === 5) { var f = contact.querySelector("input"); if (f) f.focus(); }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.querySelectorAll(".opt").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var key = btn.closest("[data-q]").getAttribute("data-q");
+      answers[key] = btn.getAttribute("data-v");
+      btn.parentElement.querySelectorAll(".opt").forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+      setTimeout(function () { step = Math.min(step + 1, 5); render(); }, 160);
+    });
+  });
+  back.addEventListener("click", function () { step = Math.max(step - 1, 0); render(); });
+
+  // Letter keys A to D answer the visible question
+  document.addEventListener("keydown", function (e) {
+    if (step > 4 || e.metaKey || e.ctrlKey || e.altKey) return;
+    var i = "abcd".indexOf(e.key.toLowerCase());
+    if (i < 0) return;
+    var opt = qs[order[step]].querySelectorAll(".opt")[i];
+    if (opt) opt.click();
+  });
+
+  document.getElementById("first_name").addEventListener("input", function (e) {
+    tName.textContent = e.target.value.trim() || "Your name here";
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
