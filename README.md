@@ -31,6 +31,18 @@ Three static pages, no build step. Upload the whole folder to any host, or paste
 4. **Photos.** The site only has top-down product renders and two water shots. Real photos of tubs installed in backyards, the factory floor, and Kevin and Dawn would lift the page a lot. Swap them in `img/` and update the `src` attributes.
 5. **Email and phone follow-up.** The pages promise an email with the pass and the price sheet, plus a call from the team. There is no texting anywhere. Set the email automation up on whatever receives the webhook, and route the phone numbers to whoever is making the calls.
 
+## Publishing on generationhottubs.com (WordPress)
+
+The live pages are three WordPress pages that use the **Elementor Canvas** template, each holding one Custom HTML block:
+
+| Page | Address | Bundle |
+|---|---|---|
+| Factory Sale (parent) | `/factory-sale/` | `wp-bundles/factory-sale.txt` |
+| Quiz (child) | `/factory-sale/quiz/` | `wp-bundles/quiz.txt` |
+| Thank You (child) | `/factory-sale/thank-you/` | `wp-bundles/thank-you.txt` |
+
+After editing any page, styles or scripts, run `python3 build-wp.py`, then paste the new bundle over the page's Custom HTML block (or update it through the REST API) and purge LiteSpeed Cache. The bundles inline all CSS and JS, scope the CSS under `#ght` so the theme cannot restyle it, use the images already in the WordPress Media Library, and tag scripts so LiteSpeed does not minify or defer them.
+
 ## Sharing a review link
 
 `build-demo.py` combines the three pages into `demo.html` (and `demo-local.html` for opening on a laptop). One link, with the pages at `#home`, `#quiz` and `#thanks`. Rebuild it after editing any page:
