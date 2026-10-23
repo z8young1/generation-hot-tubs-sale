@@ -29,7 +29,7 @@ window.GHT = {
   // Where lead data is POSTed as JSON. Currently the GoHighLevel inbound webhook,
   // which creates or updates the contact and fills the GHL fields.
   // Leave blank and the pages still work; leads are only stored in the visitor's browser.
-  formEndpoint: "https://services.leadconnectorhq.com/hooks/opaag6b94UoGQNHdGYfw/webhook-trigger/89c6441a-ec9d-4cb0-a494-0541bca46fff",
+  formEndpoint: "https://services.leadconnectorhq.com/hooks/opaag6b94UoGQNHdGYfw/webhook-trigger/86fd93b0-1c9b-41ca-9b06-2f7ec6eba8bf",
   privacyUrl: "https://generationhottubs.com/privacy-notice/",
   siteUrl: "https://generationhottubs.com/"
 };
