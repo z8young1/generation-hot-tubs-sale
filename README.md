@@ -15,7 +15,13 @@ Three static pages, no build step. Upload the whole folder to any host, or paste
 ## Before launch
 
 1. **Financing.** GreenSky's finance module (merchant 81140372, plan 2613) is embedded on `index.html` and `thank-you.html` exactly as GreenSky supplied it. GreenSky's usage guidelines forbid editing that code, so to change plans, replace the whole block with new code from GreenSky. Plan 2613 is deferred interest (no interest if paid in full in 12 months, 17.99% to 29.99% APR otherwise), so the pages never say "0%". Any copy that states the terms must also say that interest is charged from the purchase date if the balance is not paid in full in 12 months.
-2. **Where leads go.** Set `formEndpoint` in `config.js` to a webhook (Zapier, Make, GoHighLevel, HubSpot) and every lead is POSTed there as JSON with: name, phone, email, ZIP, payment preference, email consent, the five quiz answers, the matched model, the pass number, and any UTM or click IDs from the ad.
+2. **Where leads go.** `formEndpoint` in `config.js` is set to the GoHighLevel inbound webhook. Both forms POST one flat JSON object, so each key maps straight onto a GHL contact or custom field in the workflow's webhook trigger:
+   - Contact: `first_name`, `last_name`, `full_name`, `phone` (+1 format), `email`, `postal_code`, `email_consent` (Yes/No)
+   - Quiz, in plain English: `quiz_who`, `quiz_purpose`, `quiz_space`, `quiz_priority`, `quiz_timing`, `matched_tub`, `payment_preference`
+   - Sale: `factory_pass_number`, `form_name`, `lead_source`, `event`, `page_url`, `submitted_at`, `tags`
+   - Ad tracking: `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `fbclid`, `gclid`, `ttclid`
+
+   Quick-form leads send the same keys with the quiz fields empty. The redirect to the thank-you page never waits more than 2.5 seconds on the webhook.
 3. **Confirm with Kevin:**
    - Sale hours for each day (placeholders are Thu and Fri 9 to 6, Sat 9 to 4).
    - That the "price sheet a day early" and "first pick on floor models" promises are ones he will honor. They are the reason to hand over info.
