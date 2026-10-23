@@ -137,15 +137,63 @@
   function loadLead() {
     try { return JSON.parse(ls(true, LEAD_KEY) || "null"); } catch (e) { return null; }
   }
+  /* Plain-English labels so quiz answers read well in the CRM */
+  var LABELS = {
+    people: { p1: "Just me", p2: "Me and one other", p3: "Family or friends, 3 to 5", p4: "A crowd, 6 or more" },
+    purpose: { r1: "Unwinding at the end of the day", r2: "A sore back, stiff joints, recovery", r3: "Time with family and friends", r4: "Swimming and exercise" },
+    space: { s1: "A small patio or deck", s2: "An average backyard", s3: "Plenty of room", s4: "Not sure yet, needs help with placement" },
+    features: { f1: "Maximum jets and massage", f2: "Simple, reliable, easy to maintain", f3: "Lights, the waterfall, the extras", f4: "The lowest price that still lasts" },
+    timing: { t1: "As soon as the sale, before Thanksgiving", t2: "Before Christmas", t3: "Sometime this winter", t4: "Just looking right now" },
+    payment: { financing: "Monthly, with 0% financing", full: "Pay in full", unsure: "Not sure yet" }
+  };
+  function label(group, v) { return (LABELS[group] && LABELS[group][v]) || v || ""; }
+
+  /* Flat payload for the webhook. Every key is a top-level field so it maps
+     straight onto a GoHighLevel contact or custom field. */
+  function webhookPayload(lead) {
+    var a = lead.answers || {};
+    var utm = lead.attribution || {};
+    var o = {
+      first_name: lead.first_name || "",
+      last_name: lead.last_name || "",
+      full_name: [lead.first_name, lead.last_name].filter(Boolean).join(" "),
+      phone: lead.phone ? "+1" + lead.phone : "",
+      email: lead.email || "",
+      postal_code: lead.zip || "",
+      payment_preference: label("payment", lead.payment_preference),
+      email_consent: lead.email_consent ? "Yes" : "No",
+      quiz_who: label("people", a.people),
+      quiz_purpose: label("purpose", a.purpose),
+      quiz_space: label("space", a.space),
+      quiz_priority: label("features", a.features),
+      quiz_timing: label("timing", a.timing),
+      matched_tub: lead.match || "",
+      factory_pass_number: lead.passNumber || "",
+      form_name: lead.source === "perfect-hot-tub-quiz" ? "Perfect Hot Tub Quiz" : "Factory Sale Quick Form",
+      lead_source: lead.source || "",
+      event: C.eventName || "",
+      page_url: location.origin + (lead.page || location.pathname),
+      submitted_at: lead.submittedAt || new Date().toISOString(),
+      tags: ["factory-sale-2026", lead.source || "factory-sale-form"].join(",")
+    };
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid", "ttclid"].forEach(function (k) {
+      o[k] = utm[k] || "";
+    });
+    return o;
+  }
+
   function postLead(lead) {
     if (!C.formEndpoint) return Promise.resolve();
     try {
-      return fetch(C.formEndpoint, {
+      var send = fetch(C.formEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(lead),
+        body: JSON.stringify(webhookPayload(lead)),
         keepalive: true
       }).catch(function () {});
+      // Never hold the visitor on the form for a slow webhook; keepalive finishes the send.
+      var timeout = new Promise(function (r) { setTimeout(r, 2500); });
+      return Promise.race([send, timeout]);
     } catch (e) { return Promise.resolve(); }
   }
 
@@ -197,5 +245,5 @@
     });
   });
 
-  window.GHTLead = { save: saveLead, load: loadLead, post: postLead, match: matchTub, tubs: TUBS, passNumber: passNumber };
+  window.GHTLead = { save: saveLead, load: loadLead, post: postLead, payload: webhookPayload, match: matchTub, tubs: TUBS, passNumber: passNumber };
 })();

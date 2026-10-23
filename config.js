@@ -27,9 +27,10 @@ window.GHT = {
   // Links
   // PASTE KEVIN'S 0% FINANCING APPLICATION LINK HERE (leave blank until you have it)
   financingUrl: "",
-  // Where lead data is POSTed as JSON (Zapier / Make webhook, HubSpot, GoHighLevel, etc.).
+  // Where lead data is POSTed as JSON. Currently the GoHighLevel inbound webhook,
+  // which creates or updates the contact and fills the GHL fields.
   // Leave blank and the pages still work; leads are only stored in the visitor's browser.
-  formEndpoint: "",
+  formEndpoint: "https://services.leadconnectorhq.com/hooks/opaag6b94UoGQNHdGYfw/webhook-trigger/89c6441a-ec9d-4cb0-a494-0541bca46fff",
   privacyUrl: "https://generationhottubs.com/privacy-notice/",
   siteUrl: "https://generationhottubs.com/"
 };
