@@ -252,6 +252,7 @@ button { font: inherit; }
   border-top: 1px solid var(--line);
   font-weight: 700; font-size: var(--t-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
 }
+.trust a { color: inherit; text-decoration-color: var(--aqua); text-underline-offset: 3px; }
 .trust span::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--aqua); margin-right: 9px; vertical-align: 0; }
 
 /* Countdown strip */
@@ -465,19 +466,21 @@ button { font: inherit; }
 .step .n { font-weight: 800; font-size: var(--t-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--aqua-deep); }
 .step .n.done { color: var(--white); background: var(--aqua); display: inline-block; padding: 3px 10px; border-radius: 999px; justify-self: start; }
 .step h3 { font-family: var(--display); font-weight: 400; font-size: 1.35rem; line-height: 1.1; }
+/* Financing: our copy beside GreenSky's module. The module is fixed at 330px wide
+   and must not be restyled, so the layout makes room for it instead. */
+.fin-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(24px, 4vw, 48px); align-items: center; }
+@media (max-width: 880px) { .fin-row { grid-template-columns: 1fr; } }
+.gs-slot { justify-self: center; max-width: 100%; overflow-x: auto; }
 .fin {
   background: var(--sun); color: var(--ink);
   border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 8px 8px 0 var(--aqua);
   padding: clamp(24px, 4vw, 44px);
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center;
+  display: grid; gap: 14px; align-content: center;
 }
-@media (max-width: 760px) { .fin { grid-template-columns: 1fr; } }
 .fin .eyebrow { color: #6b4a00; }
 .fin h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.9rem, 4.2vw, 3rem); line-height: 1.02; }
 .fin p { max-width: 36rem; color: #3b2d05; }
-.fin .btn-paper { background: var(--ink); color: var(--white); box-shadow: 4px 4px 0 var(--white); }
-.fin .btn-paper:hover { box-shadow: 5px 5px 0 var(--white); }
-.fin .pend { font-size: var(--t-xs); color: #6b4a00; font-weight: 600; margin-top: 8px; }
+.fin .fin-terms { font-size: var(--t-sm); color: #6b4a00; font-weight: 600; }
 .match { background: var(--white); border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: var(--shadow-soft); display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); overflow: hidden; }
 @media (max-width: 760px) { .match { grid-template-columns: 1fr; } }
 .match .shot { background: var(--aqua-light); display: grid; place-items: center; padding: 20px; border-right: 2px solid var(--ink); }

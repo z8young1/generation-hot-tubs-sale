@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Your Factory Pass | Generation Hot Tubs Factory Sale</title>
-<meta name="description" content="Your Factory Pass is held for the Generation Hot Tubs Factory Sale, November 5 to 7 in McMinnville, TN. Apply for 0% financing now so you walk in approved.">
+<meta name="description" content="Your Factory Pass is held for the Generation Hot Tubs Factory Sale, November 5 to 7 in McMinnville, TN. Apply for financing now so you walk in approved.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="img/Generation-Hot-Tub-Logo-Circle.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,17 +64,16 @@
 
   <!-- DO THIS NOW: FINANCING -->
   <section class="band" id="financing" style="border-top:0;padding-top:24px">
-    <div class="wrap">
+    <div class="wrap fin-row">
       <div class="fin">
-        <div>
-          <p class="eyebrow">Do this now &middot; About five minutes</p>
-          <h2>Walk in already approved for 0% financing.</h2>
-          <p style="margin-top:14px">The people who get the tub they want on sale day are the ones who do not spend an hour at the financing desk. Apply online now, and when you arrive you are choosing a tub, not filling out forms.</p>
-        </div>
-        <div>
-          <a class="btn btn-paper" id="fin-btn" href="#" target="_blank" rel="noopener">Apply for 0% financing <span class="arrow">&rarr;</span></a>
-          <p class="pend" id="fin-note" hidden>Application link coming soon. Call <span data-ght="phone">931-414-2908</span> and we will start it with you.</p>
-        </div>
+        <p class="eyebrow">Do this now &middot; About five minutes</p>
+        <h2>Walk in already approved for financing.</h2>
+        <p>The people who get the tub they want on sale day are the ones who do not spend an hour at the financing desk. Apply now through GreenSky, our financing partner, and when you arrive you are choosing a tub, not filling out forms.</p>
+        <p class="fin-terms">Tap <b>Apply Now</b> in the GreenSky box to start. Subject to credit approval. Rather do it by phone? Call <span data-ght="phone">931-414-2908</span>.</p>
+      </div>
+      <div class="gs-slot">
+        <!-- GreenSky finance module. Pasted exactly as GreenSky supplied it. Do not edit (GreenSky usage guidelines). -->
+        <div class="financing-module" style="box-sizing: border-box; margin: 3px; text-align: left; border-width: 2px; border-style: solid; border-color: #207e20; width: 324px; border-radius: 4px;"><div><img src="https://www.greensky.com/merchantkit/images/finance_buttons/headers/header_320.jpg?v=3.0.612" width="320" alt="Financing Options from GreenSky" tabindex="0" /></div><div><img src="https://www.greensky.com/merchantkit/images/finance_buttons/product_headers/spas_product_header_320.jpg?v=3.0.612" width="320" alt="Finance Your Project" tabindex="0" /></div><div><a href="https://projects.greensky.com/MerchantLoanApplication?apptype=short&merchant=81140372&dealerplan=2613&channel=External-Button-03" target="_blank" tabindex="0"><img src="https://www.greensky.com/merchantkit/images/finance_buttons/plans/2613_320x100.jpg?v=3.0.612" width="320" alt="Plan 2613" /></a></div><div><img src="https://www.greensky.com/merchantkit/images/finance_buttons/footers/footer_320.jpg?v=3.0.612" width="320" alt="*Subject to credit approval. These examples are estimates only. Actual payment amounts based on amount and timing of purchases. Call 866-936-0602 for financing costs and terms. Loans for the GreenSky® consumer loan program are provided by Synovus Bank, Member FDIC, NMLS #408043, without regard to age, race, color, religion, national origin, gender, disability, or familial status. GreenSky Servicing, LLC services the loans on behalf of your lender, NMLS #1416362. www.nmlsconsumeraccess.org. GreenSky® is a registered trademark of GreenSky, LLC and is licensed to banks and other financial institutions for their use in connection with that consumer loan program. GreenSky Servicing, LLC is a financial technology company that manages the GreenSky® consumer loan program by providing origination and servicing support to banks and other financial institutions that make or hold program loans. GreenSky, LLC and GreenSky Servicing, LLC are not lenders. All credit decisions and loan terms are determined by program lenders." tabindex="0" /></div></div>
       </div>
     </div>
   </section>
@@ -115,7 +114,7 @@
         <div class="step">
           <span class="n">Before the sale</span>
           <h3>Get pre-approved</h3>
-          <p class="muted">Use the financing link above. Then on <span data-ght="priceSheetDay">Wednesday, November 4</span> your price sheet arrives so you can pick your tub from the couch.</p>
+          <p class="muted">Apply in the GreenSky box above. Then on <span data-ght="priceSheetDay">Wednesday, November 4</span> your price sheet arrives so you can pick your tub from the couch.</p>
         </div>
         <div class="step">
           <span class="n">Nov 5 to 7</span>
@@ -174,18 +173,10 @@
     document.getElementById("pass-no-inline").textContent = lead.passNumber;
   }
 
-  // Financing button: wired to config.financingUrl, graceful until Kevin's link arrives
-  var fin = document.getElementById("fin-btn");
-  if (C.financingUrl) {
-    fin.href = C.financingUrl;
-  } else {
-    fin.addEventListener("click", function (e) { e.preventDefault(); document.getElementById("fin-note").hidden = false; });
-  }
-
   // Google Calendar link (works for any viewer; no download needed)
   var cal = document.getElementById("cal-link");
   var toUTC = function (iso) { return new Date(iso).toISOString().replace(/[-:]|\.\d{3}/g, ""); };
-  var details = "Factory Pass " + (lead.passNumber || "") + ". Factory pricing on every Generation hot tub, 0% financing available. " + (C.phone || "");
+  var details = "Factory Pass " + (lead.passNumber || "") + ". Factory pricing on every Generation hot tub, special financing available. " + (C.phone || "");
   cal.href = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
     "&text=" + encodeURIComponent(C.eventName || "Generation Hot Tubs Factory Sale") +
     "&dates=" + toUTC(C.eventStart || "2026-11-05T09:00:00-06:00") + "/" + toUTC(C.eventEnd || "2026-11-07T16:00:00-06:00") +

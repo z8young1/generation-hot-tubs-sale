@@ -25,8 +25,7 @@ window.GHT = {
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=300+Garfield+Street+McMinnville+TN+37110",
 
   // Links
-  // PASTE KEVIN'S 0% FINANCING APPLICATION LINK HERE (leave blank until you have it)
-  financingUrl: "",
+  // Financing: the GreenSky module is embedded directly in index.html and thank-you.html.
   // Where lead data is POSTed as JSON (Zapier / Make webhook, HubSpot, GoHighLevel, etc.).
   // Leave blank and the pages still work; leads are only stored in the visitor's browser.
   formEndpoint: "",

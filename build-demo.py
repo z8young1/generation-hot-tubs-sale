@@ -36,10 +36,6 @@ assert "data-view" in quiz_js
 thanks_js = thanks_scripts[0].strip()
 assert thanks_js.startswith("(function () {") and thanks_js.endswith("})();")
 thanks_js = "window.renderThanks = function () {" + thanks_js[len("(function () {"):-len("})();")] + "};"
-thanks_js = thanks_js.replace(
-    'fin.addEventListener("click", function (e) { e.preventDefault(); document.getElementById("fin-note").hidden = false; });',
-    'fin.onclick = function (e) { e.preventDefault(); document.getElementById("fin-note").hidden = false; };')
-assert "fin.onclick" in thanks_js
 
 router = """
 (function () {
