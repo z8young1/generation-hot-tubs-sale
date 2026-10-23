@@ -49,7 +49,7 @@
         <div class="trust">
           <span>Built in the USA</span>
           <span>10-year shell warranty</span>
-          <span><a href="#financing">Special financing available</a></span>
+          <span><a href="#home-financing">Special financing available</a></span>
           <span>Family owned, McMinnville TN</span>
         </div>
       </div>
@@ -249,7 +249,7 @@
   </section>
 
   <!-- FINANCING (GreenSky) -->
-  <section class="band" id="financing">
+  <section class="band" id="home-financing">
     <div class="wrap fin-row">
       <div class="sec-head" style="margin-bottom:0">
         <p class="eyebrow">Paying over time</p>
@@ -780,11 +780,12 @@
   var views = document.querySelectorAll("[data-view]");
   function show() {
     var h = (location.hash || "#home").replace("#", "");
+    var anchor = titles[h] ? null : document.getElementById(h);
     if (!titles[h]) h = "home";
     views.forEach(function (v) { v.hidden = v.getAttribute("data-view") !== h; });
     if (h === "thanks" && window.renderThanks) window.renderThanks();
     document.title = titles[h];
-    window.scrollTo(0, 0);
+    if (anchor) anchor.scrollIntoView(); else window.scrollTo(0, 0);
   }
   window.addEventListener("hashchange", show);
   show();

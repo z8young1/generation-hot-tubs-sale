@@ -25,6 +25,9 @@ quiz, quiz_scripts = body_of("quiz.html")
 thanks, thanks_scripts = body_of("thank-you.html")
 
 home, quiz, thanks = relink(home), relink(quiz), relink(thanks)
+# both pages have a #financing section; give the landing page's its own id in the demo
+assert home.count('id="financing"') == 1 and home.count('href="#financing"') == 1
+home = home.replace('id="financing"', 'id="home-financing"').replace('href="#financing"', 'href="#home-financing"')
 thanks = thanks.replace('class="ticket" id="pass"', 'class="ticket" id="ty-pass"')
 
 quiz_js = quiz_scripts[0]
@@ -43,11 +46,12 @@ router = """
   var views = document.querySelectorAll("[data-view]");
   function show() {
     var h = (location.hash || "#home").replace("#", "");
+    var anchor = titles[h] ? null : document.getElementById(h);
     if (!titles[h]) h = "home";
     views.forEach(function (v) { v.hidden = v.getAttribute("data-view") !== h; });
     if (h === "thanks" && window.renderThanks) window.renderThanks();
     document.title = titles[h];
-    window.scrollTo(0, 0);
+    if (anchor) anchor.scrollIntoView(); else window.scrollTo(0, 0);
   }
   window.addEventListener("hashchange", show);
   show();
