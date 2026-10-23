@@ -31,6 +31,10 @@ Three static pages, no build step. Upload the whole folder to any host, or paste
 4. **Photos.** The site only has top-down product renders and two water shots. Real photos of tubs installed in backyards, the factory floor, and Kevin and Dawn would lift the page a lot. Swap them in `img/` and update the `src` attributes.
 5. **Email and phone follow-up.** The pages promise an email with the pass and the price sheet, plus a call from the team. There is no texting anywhere. Set the email automation up on whatever receives the webhook, and route the phone numbers to whoever is making the calls.
 
+## GoHighLevel
+
+Leads land in the Generation Hot Tubs sub-account (agency CNXTNS GROUP) through the published workflow **10. Factory Sale: Find Your Perfect Hot Tub Submission**: Inbound Webhook trigger, then **Create contact** (26 mapped fields), then **Add Tag** (`factory-sale-2026`, `factory-sale-website-lead`). The quiz and quick-form fields live in the contact custom-field folder **Factory Sale 2026**. `gclid` is reserved by GoHighLevel, so the Google click ID lands in **Google Click ID**. The Inbound Webhook is a premium trigger with a small per-run charge. If the trigger is ever deleted and re-added, GoHighLevel issues a new URL: update `formEndpoint` in `config.js`, run `build-wp.py`, and update the three WordPress pages.
+
 ## Publishing on generationhottubs.com (WordPress)
 
 The live pages are three WordPress pages that use the **Elementor Canvas** template, each holding one Custom HTML block:
