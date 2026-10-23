@@ -13,7 +13,7 @@ Pages on generationhottubs.com:
 The CSS is scoped under #ght, with the theme's styles reset inside it, so
 Hello Elementor and the Elementor kit cannot restyle the page.
 """
-import re, pathlib
+import base64, re, pathlib
 root = pathlib.Path(__file__).parent
 out_dir = root / "wp-bundles"
 out_dir.mkdir(exist_ok=True)
@@ -131,7 +131,11 @@ def bundle(src, dest):
     html = ("<!-- wp:html -->\n" + FONTS
             + "<style" + NOOPT + ">\n" + css + "</style>\n"
             + '<div id="ght">\n' + body.strip() + "\n</div>\n"
-            + "".join("<script" + NOOPT + ">\n" + s.strip() + "\n</script>\n" for s in scripts)
+            # WordPress's text formatter turns && and < inside inline scripts into HTML
+            # entities, so each script travels as a base64 data URL it cannot touch.
+            + "".join('<script src="data:text/javascript;charset=utf-8;base64,'
+                      + base64.b64encode(s.strip().encode("utf-8")).decode("ascii")
+                      + '"' + NOOPT + '></script>\n' for s in scripts)
             + "<!-- /wp:html -->\n")
     # The block parser ends the block at this marker, so it may appear only once.
     assert html.count("<!-- /wp:html -->") == 1
