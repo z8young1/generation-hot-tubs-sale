@@ -21,6 +21,7 @@
   --sun: #ffb703;         /* call-to-action marigold */
   --sun-hover: #ffc633;
   --coral: #ff6a45;       /* stamp and small pops */
+  --orange: #ff7a1a;      /* the 40% off sunburst */
   --black: #121212;       /* header, footer, mobile bar */
   --on-black: #ffffff;
   --paper: #ffffff;       /* the pass */
@@ -46,7 +47,7 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } .burst { animation: none; } }
 body {
   margin: 0;
   background: var(--bg);
@@ -245,6 +246,41 @@ button { font: inherit; }
 }
 .dates .sep { font-family: var(--display); font-size: clamp(3rem, 10vw, 7rem); color: var(--sun); line-height: 0.9; padding-bottom: 0.75em; -webkit-text-stroke: 1px var(--ink); }
 .hero-copy { display: grid; gap: 18px; max-width: 44rem; }
+
+/* "Up to 40% off" sunburst. Desktop: beside the dates, over the tub photo.
+   Phone: top right, beside the eyebrow, since the dates fill the width. */
+.hero-grid { grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "eyebrow eyebrow" "dates burst" "copy copy"; }
+.hero-grid > .eyebrow { grid-area: eyebrow; }
+.hero-grid > .dates { grid-area: dates; }
+.hero-grid > .hero-copy { grid-area: copy; }
+.burst {
+  --burst: polygon(50.0% 0.0%, 56.4% 9.5%, 65.5% 2.4%, 68.6% 13.5%, 79.4% 9.5%, 79.0% 21.0%, 90.5% 20.6%, 86.5% 31.4%, 97.6% 34.5%, 90.5% 43.6%, 100.0% 50.0%, 90.5% 56.4%, 97.6% 65.5%, 86.5% 68.6%, 90.5% 79.4%, 79.0% 79.0%, 79.4% 90.5%, 68.6% 86.5%, 65.5% 97.6%, 56.4% 90.5%, 50.0% 100.0%, 43.6% 90.5%, 34.5% 97.6%, 31.4% 86.5%, 20.6% 90.5%, 21.0% 79.0%, 9.5% 79.4%, 13.5% 68.6%, 2.4% 65.5%, 9.5% 56.4%, 0.0% 50.0%, 9.5% 43.6%, 2.4% 34.5%, 13.5% 31.4%, 9.5% 20.6%, 21.0% 21.0%, 20.6% 9.5%, 31.4% 13.5%, 34.5% 2.4%, 43.6% 9.5%);
+  grid-area: burst; align-self: center; justify-self: start;
+  margin-left: clamp(24px, 5vw, 72px);
+  position: relative; isolation: isolate;
+  width: clamp(150px, 19vw, 220px); aspect-ratio: 1;
+  display: grid; place-content: center; justify-items: center; text-align: center;
+  color: var(--ink); line-height: 1;
+  transform: rotate(-9deg);
+  filter: drop-shadow(6px 6px 0 var(--aqua));
+  animation: burst-in 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) 0.2s both;
+}
+.burst::before, .burst::after { content: ""; position: absolute; clip-path: var(--burst); z-index: -1; }
+.burst::before { inset: -3px; background: var(--ink); }
+.burst::after { inset: 0; background: radial-gradient(circle at 40% 35%, #ffa04d, var(--orange) 70%); }
+.burst .pre, .burst .post { font-family: var(--body); font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; font-size: clamp(0.8rem, 1.3vw, 1rem); }
+.burst .big { font-family: var(--display); font-weight: 400; font-size: clamp(2.6rem, 5.2vw, 4.1rem); line-height: 0.95; margin: 2px 0 0; }
+.burst .post { font-family: var(--display); font-weight: 400; letter-spacing: 0.02em; text-transform: none; font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 0.9; }
+@keyframes burst-in { from { transform: rotate(-40deg) scale(0.4); opacity: 0; } to { transform: rotate(-9deg) scale(1); opacity: 1; } }
+@media (max-width: 880px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "eyebrow burst" "dates dates" "copy copy"; }
+  .hero-grid > .eyebrow { align-self: center; }
+  .burst { margin: -10px 4px -18px 8px; width: 118px; }
+  .burst .pre { font-size: 0.66rem; }
+  .burst .big { font-size: 2.15rem; }
+  .burst .post { font-size: 1.05rem; }
+  .bubbles i:nth-child(1), .bubbles i:nth-child(2) { display: none; }
+}
 .cta-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
 .trust {
   display: flex; flex-wrap: wrap; gap: 10px 26px;
