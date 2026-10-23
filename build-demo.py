@@ -74,7 +74,12 @@ out = (head
   + '<script>' + quiz_js + '</script>\n'
   + '<script>' + thanks_js + '</script>\n'
   + '<script>' + router + '</script>\n')
-(root / "demo.html").write_text(out, encoding="utf-8")
+# The claude.ai artifact viewer blocks images from other sites, so the review build
+# (demo.html only) points GreenSky's images at copies published with the artifact under greensky/.
+# The deployable pages keep GreenSky's embed code untouched.
+demo_out = re.sub(r'https://www\.greensky\.com/merchantkit/images/finance_buttons/[a-z_]+/([A-Za-z0-9_]+\.jpg)\?v=[0-9.]+', r'greensky/\1', out)
+assert demo_out.count('src="greensky/') == 8, demo_out.count('src="greensky/')
+(root / "demo.html").write_text(demo_out, encoding="utf-8")
 # a standalone copy with a document skeleton for local viewing
 full = '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + out.split("\n",1)[1].split("<div data-view", 1)[0] + "</head>\n<body>\n<div data-view" + out.split("<div data-view", 1)[1] + "</body>\n</html>\n"
 (root / "demo-local.html").write_text(full, encoding="utf-8")
