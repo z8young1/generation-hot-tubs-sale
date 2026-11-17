@@ -35,15 +35,21 @@ Three static pages, no build step. Upload the whole folder to any host, or paste
 
 Leads land in the Generation Hot Tubs sub-account (agency CNXTNS GROUP) through the published workflow **10. Factory Sale: Find Your Perfect Hot Tub Submission**: Inbound Webhook trigger, then **Create contact** (26 mapped fields), then **Add Tag** (`factory-sale-2026`, `factory-sale-website-lead`). The quiz and quick-form fields live in the contact custom-field folder **Factory Sale 2026**. `gclid` is reserved by GoHighLevel, so the Google click ID lands in **Google Click ID**. The Inbound Webhook is a premium trigger with a small per-run charge. If the trigger is ever deleted and re-added, GoHighLevel issues a new URL: update `formEndpoint` in `config.js`, run `build-wp.py`, and update the three WordPress pages.
 
+## Friday and Saturday appointments
+
+`appointment.html` books a Fri/Sat visit during the sale extension (through Saturday, Dec 5) and lands on `appointment-thank-you.html`, which shows the Factory Pass with the chosen day and time. It posts to its own GoHighLevel inbound webhook, `apptEndpoint` in `config.js`, as flat JSON: `first_name`, `last_name`, `full_name`, `phone` (+1 format), `email`, `visit_date`, `visit_time`, `notes`, `factory_pass_number`, `form_name`, `lead_source` and `tags` (both `FS-Ext-Appt`), `event`, `page_url`, `submitted_at`, plus the same ad tracking keys as the other forms. Ad tracking carries over from the landing page on its own, because `app.js` stores it in the browser on the first page. Days that have passed drop out of the day list automatically. To change the days or times, edit the two `<select>` lists in `appointment.html`.
+
 ## Publishing on generationhottubs.com (WordPress)
 
-The live pages are three WordPress pages that use the **Elementor Canvas** template, each holding one Custom HTML block:
+The live pages are WordPress pages that use the **Elementor Canvas** template, each holding one Custom HTML block:
 
 | Page | Address | Bundle |
 |---|---|---|
 | Factory Sale (parent) | `/factory-sale/` | `wp-bundles/factory-sale.txt` |
 | Quiz (child) | `/factory-sale/quiz/` | `wp-bundles/quiz.txt` |
 | Thank You (child) | `/factory-sale/thank-you/` | `wp-bundles/thank-you.txt` |
+| Appointment (child) | `/factory-sale/appointment/` | `wp-bundles/appointment.txt` |
+| Appointment Thank You (grandchild) | `/factory-sale/appointment/thank-you/` | `wp-bundles/appointment-thank-you.txt` |
 
 After editing any page, styles or scripts, run `python3 build-wp.py`, then paste the new bundle over the page's Custom HTML block (or update it through the REST API) and purge LiteSpeed Cache. The bundles inline all CSS and JS, scope the CSS under `#ght` so the theme cannot restyle it, use the images already in the WordPress Media Library, and tag scripts so LiteSpeed does not minify or defer them.
 

@@ -9,6 +9,8 @@ Pages on generationhottubs.com:
   /factory-sale/             <- wp-bundles/factory-sale.txt  (index.html)
   /factory-sale/quiz/        <- wp-bundles/quiz.txt          (quiz.html)
   /factory-sale/thank-you/   <- wp-bundles/thank-you.txt     (thank-you.html)
+  /factory-sale/appointment/            <- wp-bundles/appointment.txt            (appointment.html)
+  /factory-sale/appointment/thank-you/  <- wp-bundles/appointment-thank-you.txt  (appointment-thank-you.html)
 
 The CSS is scoped under #ght, with the theme's styles reset inside it, so
 Hello Elementor and the Elementor kit cannot restyle the page.
@@ -19,7 +21,8 @@ out_dir = root / "wp-bundles"
 out_dir.mkdir(exist_ok=True)
 
 BASE = "/factory-sale/"
-URLS = {"index.html": BASE, "quiz.html": BASE + "quiz/", "thank-you.html": BASE + "thank-you/"}
+URLS = {"index.html": BASE, "quiz.html": BASE + "quiz/", "thank-you.html": BASE + "thank-you/",
+        "appointment.html": BASE + "appointment/", "appointment-thank-you.html": BASE + "appointment/thank-you/"}
 MEDIA = "https://generationhottubs.com/wp-content/uploads/2023/11/"
 IMAGES = ["GHT-Location-1.webp", "Generation-GH-700-Classic.jpg", "Generation-GH-700-Deluxe.jpg",
           "Generation-GH-800-Deluxe-1.jpg", "Generation-GH-800-Deluxe.jpg",
@@ -117,7 +120,7 @@ def relink(html):
     for name, url in URLS.items():
         html = html.replace('href="' + name + '"', 'href="' + url + '"')
         html = html.replace('data-next="' + name + '"', 'data-next="' + url + '"')
-    assert not re.search(r'(href|data-next)="(index|quiz|thank-you)\.html', html)
+    assert not re.search(r'(href|data-next)="[a-z-]+\.html', html)
     return html
 
 
@@ -146,3 +149,5 @@ def bundle(src, dest):
 bundle("index.html", "factory-sale.txt")
 bundle("quiz.html", "quiz.txt")
 bundle("thank-you.html", "thank-you.txt")
+bundle("appointment.html", "appointment.txt")
+bundle("appointment-thank-you.html", "appointment-thank-you.txt")

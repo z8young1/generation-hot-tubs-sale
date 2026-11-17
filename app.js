@@ -202,7 +202,7 @@
   function validate(form) {
     var ok = true;
     form.querySelectorAll(".field[data-req]").forEach(function (f) {
-      var input = f.querySelector("input, select");
+      var input = f.querySelector("input, select, textarea");
       var v = (input.value || "").trim();
       var bad = !v;
       if (!bad && input.type === "tel") bad = cleanPhone(v).length !== 10;
@@ -245,5 +245,5 @@
     });
   });
 
-  window.GHTLead = { save: saveLead, load: loadLead, post: postLead, payload: webhookPayload, match: matchTub, tubs: TUBS, passNumber: passNumber };
+  window.GHTLead = { validate: validate, cleanPhone: cleanPhone, utm: getUTM, save: saveLead, load: loadLead, post: postLead, payload: webhookPayload, match: matchTub, tubs: TUBS, passNumber: passNumber };
 })();

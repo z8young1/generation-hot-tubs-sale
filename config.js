@@ -30,6 +30,8 @@ window.GHT = {
   // which creates or updates the contact and fills the GHL fields.
   // Leave blank and the pages still work; leads are only stored in the visitor's browser.
   formEndpoint: "https://services.leadconnectorhq.com/hooks/opaag6b94UoGQNHdGYfw/webhook-trigger/86fd93b0-1c9b-41ca-9b06-2f7ec6eba8bf",
+  // Fri/Sat appointment page: its own GoHighLevel inbound webhook (tag FS-Ext-Appt).
+  apptEndpoint: "https://services.leadconnectorhq.com/hooks/opaag6b94UoGQNHdGYfw/webhook-trigger/PcLr9vjGDlkjpSfqblRD",
   privacyUrl: "https://generationhottubs.com/privacy-notice/",
   siteUrl: "https://generationhottubs.com/"
 };

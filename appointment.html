@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book a Friday or Saturday Factory Visit | Generation Hot Tubs</title>
+<meta name="description" content="Book a Friday or Saturday visit to the Generation Hot Tubs factory in McMinnville, TN. Factory Sale pricing, up to 40% off, now through Saturday, December 5.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/Generation-Hot-Tub-Logo-Circle.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Back to the Factory Sale page">
+      <img src="img/Generation-Hot-Tub-Logo-Circle.png" alt="">
+      <span class="name">Generation Hot Tubs <small>Factory Sale</small></span>
+    </a>
+    <div class="actions">
+      <a class="phone" data-ght-href="phoneHref" href="tel:+19314142908">Call <b data-ght="phone">931-414-2908</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="appt-hero">
+    <div class="wrap appt-grid">
+
+      <div class="appt-copy">
+        <p class="eyebrow">Factory Sale &middot; Friday and Saturday visits</p>
+        <h1 class="h-display">Book your Friday or Saturday factory visit</h1>
+        <p class="lede">Factory Sale pricing, up to 40% off, now through Saturday, Dec 5. Tell us when you're coming and we'll have someone there to meet you.</p>
+      </div>
+
+      <div class="appt-form">
+        <form class="quick form" id="appt-form" data-next="appointment-thank-you.html" novalidate>
+          <div class="grid-2">
+            <div class="field" data-req>
+              <label for="a-first">First name</label>
+              <input id="a-first" name="first_name" type="text" autocomplete="given-name" required>
+              <span class="err">Please add your first name.</span>
+            </div>
+            <div class="field" data-req>
+              <label for="a-last">Last name</label>
+              <input id="a-last" name="last_name" type="text" autocomplete="family-name" required>
+              <span class="err">Please add your last name.</span>
+            </div>
+          </div>
+          <div class="field" data-req>
+            <label for="a-phone">Phone</label>
+            <input id="a-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(931) 555-0123" required>
+            <span class="err">Please enter a 10-digit phone number.</span>
+          </div>
+          <div class="field" data-req>
+            <label for="a-email">Email</label>
+            <input id="a-email" name="email" type="email" inputmode="email" autocomplete="email" required>
+            <span class="err">Please enter a valid email.</span>
+          </div>
+          <div class="grid-2">
+            <div class="field" data-req>
+              <label for="a-date">Day you plan to visit</label>
+              <select id="a-date" name="visit_date" required>
+                <option value="">Choose a day</option>
+                <option data-date="2026-11-20">Friday, Nov 20</option>
+                <option data-date="2026-11-21">Saturday, Nov 21</option>
+                <option data-date="2026-11-27">Friday, Nov 27</option>
+                <option data-date="2026-11-28">Saturday, Nov 28</option>
+                <option data-date="2026-12-04">Friday, Dec 4</option>
+                <option data-date="2026-12-05">Saturday, Dec 5</option>
+              </select>
+              <span class="err">Please choose a day.</span>
+            </div>
+            <div class="field" data-req>
+              <label for="a-time">Time you plan to arrive</label>
+              <select id="a-time" name="visit_time" required>
+                <option value="">Choose a time</option>
+                <option data-hour="9">9:00 am</option>
+                <option data-hour="10">10:00 am</option>
+                <option data-hour="11">11:00 am</option>
+                <option data-hour="12">12:00 pm</option>
+                <option data-hour="13">1:00 pm</option>
+                <option data-hour="14">2:00 pm</option>
+                <option data-hour="15">3:00 pm</option>
+                <option data-hour="16">4:00 pm</option>
+              </select>
+              <span class="err">Please choose a time.</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="a-notes">Anything else we should know? <span class="opt-tag">Optional</span></label>
+            <textarea id="a-notes" name="notes" rows="3" placeholder="Models you want to see, who's coming, questions"></textarea>
+          </div>
+          <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-gold btn-block" type="submit">Request my visit</button>
+          <p class="appt-error" id="appt-error" role="alert" hidden>Something went wrong and your request did not go through. Please call <a data-ght-href="phoneHref" href="tel:+19314142908" data-ght="phone">931-414-2908</a>.</p>
+          <p class="form-note">By submitting, you agree that a Generation Hot Tubs team member may call or text you about your visit. Consent is not a condition of purchase. <a data-ght-href="privacyUrl" href="https://generationhottubs.com/privacy-notice/" target="_blank" rel="noopener">Privacy</a></p>
+        </form>
+        <p class="appt-under"><a data-ght-href="mapsUrl" href="https://www.google.com/maps/search/?api=1&query=300+Garfield+Street+McMinnville+TN+37110" target="_blank" rel="noopener">300 Garfield St, McMinnville, TN</a> &middot; <a data-ght-href="phoneHref" href="tel:+19314142908" data-ght="phone">931-414-2908</a> &middot; Open Mon to Thu, 7 to 5, no appointment needed.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="foot" style="padding-bottom:48px">
+  <div class="wrap">
+    <span>&copy; 2026 Generation Hot Tubs &middot; 300 Garfield Street, McMinnville, TN 37110</span>
+    <span><a data-ght-href="phoneHref" href="tel:+19314142908" data-ght="phone">931-414-2908</a> &middot; <a data-ght-href="siteUrl" href="https://generationhottubs.com/" target="_blank" rel="noopener">generationhottubs.com</a> &middot; <a data-ght-href="privacyUrl" href="https://generationhottubs.com/privacy-notice/" target="_blank" rel="noopener">Privacy</a></span>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script>
+(function () {
+  var C = window.GHT || {};
+  var L = window.GHTLead;
+  var form = document.getElementById("appt-form");
+  var errBox = document.getElementById("appt-error");
+  var btn = form.querySelector("button[type=submit]");
+
+  // Drop days that have already passed (factory time), so nobody books yesterday.
+  var today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
+  form.querySelectorAll("#a-date option[data-date]").forEach(function (o) {
+    if (o.getAttribute("data-date") < today) o.remove();
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (form.elements.company_website.value) return; // spam bot
+    errBox.hidden = true;
+    if (!L.validate(form)) {
+      var bad = form.querySelector("[aria-invalid=true]");
+      if (bad) bad.focus();
+      return;
+    }
+    var val = function (k) { return (form.elements[k].value || "").trim(); };
+    var day = form.elements.visit_date.selectedOptions[0];
+    var time = form.elements.visit_time.selectedOptions[0];
+    var prior = L.load() || {};
+    var appt = {
+      first_name: val("first_name"),
+      last_name: val("last_name"),
+      visit_date: val("visit_date"),
+      visit_time: val("visit_time"),
+      date_iso: day.getAttribute("data-date"),
+      hour: time.getAttribute("data-hour"),
+      passNumber: prior.passNumber || L.passNumber()
+    };
+    var utm = L.utm();
+    var payload = {
+      first_name: appt.first_name,
+      last_name: appt.last_name,
+      full_name: appt.first_name + " " + appt.last_name,
+      phone: "+1" + L.cleanPhone(val("phone")),
+      email: val("email"),
+      visit_date: appt.visit_date,
+      visit_time: appt.visit_time,
+      notes: val("notes"),
+      factory_pass_number: appt.passNumber,
+      form_name: "Factory Sale Fri/Sat Appointment",
+      lead_source: "FS-Ext-Appt",
+      tags: "FS-Ext-Appt",
+      event: C.eventName || "",
+      page_url: location.href.split("#")[0],
+      submitted_at: new Date().toISOString()
+    };
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid", "ttclid"].forEach(function (k) {
+      payload[k] = utm[k] || "";
+    });
+
+    btn.disabled = true; btn.textContent = "Sending…";
+    var done = function () {
+      try { localStorage.setItem("ght_appt", JSON.stringify(appt)); } catch (e) {}
+      if (window.fbq) { try { fbq("track", "Schedule"); } catch (e) {} }
+      location.href = form.getAttribute("data-next");
+    };
+    var fail = function () {
+      btn.disabled = false; btn.textContent = "Request my visit";
+      errBox.hidden = false;
+    };
+    if (!C.apptEndpoint) { done(); return; }
+    var send = fetch(C.apptEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true
+    }).then(function () { return "sent"; }, function () { return "failed"; });
+    // A slow webhook never strands the visitor; keepalive finishes the send.
+    var timeout = new Promise(function (r) { setTimeout(function () { r("slow"); }, 6000); });
+    Promise.race([send, timeout]).then(function (r) { if (r === "failed") fail(); else done(); });
+  });
+})();
+</script>
+</body>
+</html>
