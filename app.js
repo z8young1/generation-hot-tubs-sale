@@ -1,5 +1,5 @@
 /* Shared behavior for the Factory Sale pages: config fill-in, countdown,
-   ad attribution capture, lead storage/submission, Factory Pass numbers,
+   ad attribution capture, lead storage/submission,
    and the hot tub matching logic used by the quiz and thank-you page. */
 (function () {
   var C = window.GHT || {};
@@ -24,15 +24,16 @@
   });
   document.querySelectorAll("[data-ght-hours]").forEach(function (el) {
     el.innerHTML = (C.hours || []).map(function (r) {
-      return '<div class="row"><b>' + r[0] + "</b><span>" + r[1] + "</span></div>";
+      var link = r[2] && C.appointmentUrl
+        ? ' &middot; <a href="' + C.appointmentUrl + '">' + (C.appointmentLabel || "Book a visit") + "</a>" : "";
+      return '<div class="row"><b>' + r[0] + "</b><span>" + r[1] + link + "</span></div>";
     }).join("");
   });
 
-  /* 2. Countdown to doors open */
+  /* 2. Countdown to the end of Factory Sale pricing */
   var timer = document.querySelector("[data-countdown]");
-  if (timer && C.eventStart) {
-    var start = new Date(C.eventStart).getTime();
-    var end = C.eventEnd ? new Date(C.eventEnd).getTime() : start;
+  if (timer && C.eventEnd) {
+    var end = new Date(C.eventEnd).getTime();
     var pad = function (n) { return (n < 10 ? "0" : "") + n; };
     var tick = function () {
       var now = Date.now();
@@ -42,12 +43,7 @@
         if (label) label.textContent = "Thank you, McMinnville";
         return;
       }
-      if (now >= start) {
-        timer.innerHTML = "<span><b>OPEN</b> now</span>";
-        if (label) label.textContent = "Doors are open";
-        return;
-      }
-      var s = Math.floor((start - now) / 1000);
+      var s = Math.floor((end - now) / 1000);
       var d = Math.floor(s / 86400); s -= d * 86400;
       var h = Math.floor(s / 3600); s -= h * 3600;
       var m = Math.floor(s / 60);
@@ -73,22 +69,15 @@
     try { return JSON.parse(ls(true, UTM_KEY) || "{}"); } catch (e) { return {}; }
   }
 
-  /* 4. Factory Pass number, e.g. GHT-1105-7KQ3 */
-  function passNumber() {
-    var chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789", s = "";
-    for (var i = 0; i < 4; i++) s += chars[Math.floor(Math.random() * chars.length)];
-    return "GHT-1105-" + s;
-  }
-
-  /* 5. Hot tub matching used by the quiz and the thank-you page.
+  /* 4. Hot tub matching used by the quiz and the thank-you page.
         Specs come from generationhottubs.com and dealer spec sheets.
         Models without published specs say so instead of guessing. */
   var TUBS = {
     alpha1: { name: "Alpha 1", series: "Classic Series", seats: "3 person", img: "img/Generation-GH-700-Classic.jpg",
-      spec: "Built for two. Full specs on the sale sheet.",
+      spec: "Built for two. Ask for the full specs when we call.",
       why: "A tub for one or two people does not need six seats. The Alpha fits a small patio and keeps the price down." },
     alpha2: { name: "Alpha 2", series: "Signature Series", seats: "3 person", img: "img/Generation-GH-700-Deluxe.jpg",
-      spec: "Built for two, with the Signature jet package. Full specs on the sale sheet.",
+      spec: "Built for two, with the Signature jet package. Ask for the full specs when we call.",
       why: "You want the massage without the footprint. The Alpha 2 is the Signature Series in a two-person size." },
     gh550: { name: "GH550", series: "Classic Series", seats: "5 to 6 person", img: "img/Generation-GH-700-Classic.jpg",
       spec: "25 jets · 1 pump · 305 gallons · 77\" x 77\" x 34\"",
@@ -122,11 +111,9 @@
     return TUBS.silent;
   }
 
-  /* 6. Lead storage and submission */
+  /* 5. Lead storage and submission */
   function saveLead(data) {
-    var existing = loadLead() || {};
     var lead = Object.assign({}, data);
-    lead.passNumber = existing.passNumber || passNumber();
     lead.submittedAt = new Date().toISOString();
     lead.attribution = getUTM();
     lead.page = location.pathname;
@@ -143,7 +130,7 @@
     purpose: { r1: "Unwinding at the end of the day", r2: "A sore back, stiff joints, recovery", r3: "Time with family and friends", r4: "Swimming and exercise" },
     space: { s1: "A small patio or deck", s2: "An average backyard", s3: "Plenty of room", s4: "Not sure yet, needs help with placement" },
     features: { f1: "Maximum jets and massage", f2: "Simple, reliable, easy to maintain", f3: "Lights, the waterfall, the extras", f4: "The lowest price that still lasts" },
-    timing: { t1: "As soon as the sale, before Thanksgiving", t2: "Before Christmas", t3: "Sometime this winter", t4: "Just looking right now" },
+    timing: { t1: "As soon as possible", t2: "Before Christmas", t3: "Sometime this winter", t4: "Just looking right now" },
     payment: { financing: "Monthly, with financing", full: "Pay in full", unsure: "Not sure yet" }
   };
   function label(group, v) { return (LABELS[group] && LABELS[group][v]) || v || ""; }
@@ -168,7 +155,7 @@
       quiz_priority: label("features", a.features),
       quiz_timing: label("timing", a.timing),
       matched_tub: lead.match || "",
-      factory_pass_number: lead.passNumber || "",
+      factory_pass_number: "", // Factory Pass retired; key kept so the GoHighLevel mapping is unchanged
       form_name: lead.source === "perfect-hot-tub-quiz" ? "Perfect Hot Tub Quiz" : "Factory Sale Quick Form",
       lead_source: lead.source || "",
       event: C.eventName || "",
@@ -197,7 +184,7 @@
     } catch (e) { return Promise.resolve(); }
   }
 
-  /* 7. Simple field validation */
+  /* 6. Simple field validation */
   function cleanPhone(v) { return (v || "").replace(/\D/g, "").replace(/^1(\d{10})$/, "$1"); }
   function validate(form) {
     var ok = true;
@@ -227,7 +214,7 @@
     return o;
   }
 
-  /* 8. Wire every lead form on the page */
+  /* 7. Wire every lead form on the page */
   document.querySelectorAll("form[data-lead-form]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -237,7 +224,7 @@
         return;
       }
       var btn = form.querySelector("button[type=submit]");
-      if (btn) { btn.disabled = true; btn.textContent = "Holding your pass…"; }
+      if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
       var data = formData(form);
       if (form.getAttribute("data-lead-form") === "quiz" && window.GHTQuizAnswers) data.answers = window.GHTQuizAnswers();
       var lead = saveLead(data);
@@ -245,5 +232,5 @@
     });
   });
 
-  window.GHTLead = { validate: validate, cleanPhone: cleanPhone, utm: getUTM, save: saveLead, load: loadLead, post: postLead, payload: webhookPayload, match: matchTub, tubs: TUBS, passNumber: passNumber };
+  window.GHTLead = { validate: validate, cleanPhone: cleanPhone, utm: getUTM, save: saveLead, load: loadLead, post: postLead, payload: webhookPayload, match: matchTub, tubs: TUBS };
 })();

@@ -5,6 +5,10 @@ Each bundle is one Custom HTML block (styles, markup and scripts inline) for a
 WordPress page that uses the "Elementor Canvas" template, so the theme's header
 and footer stay off the page. Output goes to wp-bundles/*.txt.
 
+The same pages are also written to ghl-bundles/*.html for a GoHighLevel funnel
+or website page: paste one into a Custom HTML/JS element. Those add a reset that
+unwraps GoHighLevel's section containers.
+
 Pages on generationhottubs.com:
   /factory-sale/             <- wp-bundles/factory-sale.txt  (index.html)
   /factory-sale/quiz/        <- wp-bundles/quiz.txt          (quiz.html)
@@ -19,6 +23,8 @@ import base64, re, pathlib
 root = pathlib.Path(__file__).parent
 out_dir = root / "wp-bundles"
 out_dir.mkdir(exist_ok=True)
+ghl_dir = root / "ghl-bundles"
+ghl_dir.mkdir(exist_ok=True)
 
 BASE = "/factory-sale/"
 URLS = {"index.html": BASE, "quiz.html": BASE + "quiz/", "thank-you.html": BASE + "thank-you/",
@@ -124,6 +130,17 @@ def relink(html):
     return html
 
 
+GHL_RESET = """
+/* GoHighLevel wraps a Custom HTML element in section / row / column containers
+   that cap the width, add padding and set overflow:hidden (which also stops the
+   sticky header). This unwraps them. */
+.c-section, .c-section > .inner, .c-row, .c-row > .inner, .c-column, .c-wrapper, .c-html, .hl_page-preview--content {
+  max-width: 100% !important; width: 100% !important; padding: 0 !important; margin: 0 !important;
+  overflow: visible !important; background: transparent !important;
+}
+"""
+
+
 def bundle(src, dest):
     page = (root / src).read_text(encoding="utf-8")
     body = re.search(r"<body[^>]*>(.*?)</body>", page, re.S).group(1)
@@ -144,6 +161,9 @@ def bundle(src, dest):
     assert html.count("<!-- /wp:html -->") == 1
     (out_dir / dest).write_text(html, encoding="utf-8")
     print(dest, len(html), "bytes")
+    ghl = html.replace("<!-- wp:html -->\n", "").replace("<!-- /wp:html -->\n", "")
+    ghl = ghl.replace("</style>", GHL_RESET + "</style>", 1)
+    (ghl_dir / dest.replace(".txt", ".html")).write_text(ghl, encoding="utf-8")
 
 
 bundle("index.html", "factory-sale.txt")

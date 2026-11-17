@@ -18,7 +18,7 @@
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="Back to the Factory Sale page">
       <img src="img/Generation-Hot-Tub-Logo-Circle.png" alt="">
-      <span class="name">Generation Hot Tubs <small>Factory Sale</small></span>
+      <span class="name">Generation Hot Tubs <small>Factory Sale &middot; Through Dec 5</small></span>
     </a>
     <div class="actions">
       <a class="phone" data-ght-href="phoneHref" href="tel:+19314142908">Call <b data-ght="phone">931-414-2908</b></a>
@@ -141,15 +141,13 @@
     var val = function (k) { return (form.elements[k].value || "").trim(); };
     var day = form.elements.visit_date.selectedOptions[0];
     var time = form.elements.visit_time.selectedOptions[0];
-    var prior = L.load() || {};
     var appt = {
       first_name: val("first_name"),
       last_name: val("last_name"),
       visit_date: val("visit_date"),
       visit_time: val("visit_time"),
       date_iso: day.getAttribute("data-date"),
-      hour: time.getAttribute("data-hour"),
-      passNumber: prior.passNumber || L.passNumber()
+      hour: time.getAttribute("data-hour")
     };
     var utm = L.utm();
     var payload = {
@@ -161,7 +159,6 @@
       visit_date: appt.visit_date,
       visit_time: appt.visit_time,
       notes: val("notes"),
-      factory_pass_number: appt.passNumber,
       form_name: "Factory Sale Fri/Sat Appointment",
       lead_source: "FS-Ext-Appt",
       tags: "FS-Ext-Appt",

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Build demo.html: all three pages in one file, switched by #home / #quiz / #thanks.
+"""Build demo.html: all five pages in one file, switched by #home / #quiz / #thanks /
+#appointment / #appt-thanks.
 Used only for sharing a review link. The deployable pages are the separate .html files."""
 import re, pathlib
 root = pathlib.Path(__file__).parent
@@ -18,17 +19,25 @@ def relink(html):
     html = html.replace('href="index.html"', 'href="#home"')
     html = html.replace('href="#top"', 'href="#home"')
     html = html.replace('data-next="thank-you.html"', 'data-next="#thanks"')
+    html = html.replace('href="https://generationhottubs.com/factory-sale/appointment/"', 'href="#appointment"')
+    html = html.replace('data-next="appointment-thank-you.html"', 'data-next="#appt-thanks"')
     return html
 
 home, _ = body_of("index.html")
 quiz, quiz_scripts = body_of("quiz.html")
 thanks, thanks_scripts = body_of("thank-you.html")
 
-home, quiz, thanks = relink(home), relink(quiz), relink(thanks)
+appt, appt_scripts = body_of("appointment.html")
+appt_ty, appt_ty_scripts = body_of("appointment-thank-you.html")
+
+home, quiz, thanks, appt, appt_ty = relink(home), relink(quiz), relink(thanks), relink(appt), relink(appt_ty)
+assert 'href="#appointment"' in home and 'data-next="#appt-thanks"' in appt
+# the appointment thank-you page reuses the financing section; keep ids unique in the demo
+assert appt_ty.count('id="financing"') == 1
+appt_ty = appt_ty.replace('id="financing"', 'id="appt-financing"')
 # both pages have a #financing section; give the landing page's its own id in the demo
 assert home.count('id="financing"') == 1 and home.count('href="#financing"') == 1
 home = home.replace('id="financing"', 'id="home-financing"').replace('href="#financing"', 'href="#home-financing"')
-thanks = thanks.replace('class="ticket" id="pass"', 'class="ticket" id="ty-pass"')
 
 quiz_js = quiz_scripts[0]
 quiz_js = quiz_js.replace(
@@ -40,9 +49,16 @@ thanks_js = thanks_scripts[0].strip()
 assert thanks_js.startswith("(function () {") and thanks_js.endswith("})();")
 thanks_js = "window.renderThanks = function () {" + thanks_js[len("(function () {"):-len("})();")] + "};"
 
+appt_js = appt_scripts[0].strip()
+appt_ty_js = appt_ty_scripts[0].strip()
+assert appt_ty_js.startswith("(function () {") and appt_ty_js.endswith("})();")
+appt_ty_js = "window.renderApptThanks = function () {" + appt_ty_js[len("(function () {"):-len("})();")] + "};"
+# Review build only: in-demo links, and no lead is sent from the appointment form.
+demo_config = 'window.GHT.appointmentUrl = "#appointment"; window.GHT.apptEndpoint = "";'
+
 router = """
 (function () {
-  var titles = { home: "Generation Factory Sale", quiz: "Find Your Perfect Hot Tub", thanks: "Your Factory Pass" };
+  var titles = { home: "Generation Factory Sale", quiz: "Find Your Perfect Hot Tub", thanks: "We Got Your Request", appointment: "Book a Fri/Sat Visit", "appt-thanks": "Visit Requested" };
   var views = document.querySelectorAll("[data-view]");
   function show() {
     var h = (location.hash || "#home").replace("#", "");
@@ -50,6 +66,7 @@ router = """
     if (!titles[h]) h = "home";
     views.forEach(function (v) { v.hidden = v.getAttribute("data-view") !== h; });
     if (h === "thanks" && window.renderThanks) window.renderThanks();
+    if (h === "appt-thanks" && window.renderApptThanks) window.renderApptThanks();
     document.title = titles[h];
     if (anchor) anchor.scrollIntoView(); else window.scrollTo(0, 0);
   }
@@ -64,21 +81,25 @@ head = """<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="styles.css">
-<!-- Review build. Pages: #home, #quiz, #thanks. Built by build-demo.py from the separate deployable files. -->
+<!-- Review build. Pages: #home, #quiz, #thanks, #appointment, #appt-thanks. Built by build-demo.py from the separate deployable files. -->
 """
 out = (head
   + '<div data-view="home">' + home + '</div>\n'
   + '<div data-view="quiz" hidden>' + quiz + '</div>\n'
   + '<div data-view="thanks" hidden>' + thanks + '</div>\n'
-  + '<script src="config.js"></script>\n<script src="app.js"></script>\n'
+  + '<div data-view="appointment" hidden>' + appt + '</div>\n'
+  + '<div data-view="appt-thanks" hidden>' + appt_ty + '</div>\n'
+  + '<script src="config.js"></script>\n<script>' + demo_config + '</script>\n<script src="app.js"></script>\n'
   + '<script>' + quiz_js + '</script>\n'
   + '<script>' + thanks_js + '</script>\n'
+  + '<script>' + appt_js + '</script>\n'
+  + '<script>' + appt_ty_js + '</script>\n'
   + '<script>' + router + '</script>\n')
 # The claude.ai artifact viewer blocks images from other sites, so the review build
 # (demo.html only) points GreenSky's images at copies published with the artifact under greensky/.
 # The deployable pages keep GreenSky's embed code untouched.
 demo_out = re.sub(r'https://www\.greensky\.com/merchantkit/images/finance_buttons/[a-z_]+/([A-Za-z0-9_]+\.jpg)\?v=[0-9.]+', r'greensky/\1', out)
-assert demo_out.count('src="greensky/') == 8, demo_out.count('src="greensky/')
+assert demo_out.count('src="greensky/') == 12, demo_out.count('src="greensky/')
 (root / "demo.html").write_text(demo_out, encoding="utf-8")
 # a standalone copy with a document skeleton for local viewing
 full = '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + out.split("\n",1)[1].split("<div data-view", 1)[0] + "</head>\n<body>\n<div data-view" + out.split("<div data-view", 1)[1] + "</body>\n</html>\n"

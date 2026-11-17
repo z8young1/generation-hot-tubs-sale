@@ -1,15 +1,17 @@
 # Generation Hot Tubs Factory Sale: landing pages
 
+**Extended sale (updated 2026-11-17).** Factory Sale pricing now runs through Saturday, December 5, 2026. The Factory Pass and the emailed price sheet are retired: the form is "Get my factory price" and a team member calls with pricing. Hours are Monday to Thursday 7 to 5, Friday and Saturday by appointment (the "Book a Fri/Sat visit" links go to `/factory-sale/appointment/`, set as `appointmentUrl` in `config.js`), closed Thanksgiving Day. The webhook still sends every key it did before; `factory_pass_number` is now always empty. The sections below marked "Before launch" describe the original November 5 to 7 event.
+
 Three static pages, no build step. Upload the whole folder to any host, or paste each page into a page builder.
 
 | File | Purpose |
 |---|---|
 | `index.html` | Sale landing page (where the social ad sends people) |
 | `quiz.html` | "Find Your Perfect Hot Tub" questionnaire and lead form |
-| `thank-you.html` | Factory Pass, GreenSky financing module, the visitor's match |
+| `thank-you.html` | Confirmation (a team member calls with pricing), hours, GreenSky financing module, the visitor's match |
 | `config.js` | Dates, hours, phone, address, form endpoint |
 | `styles.css` | Shared styling |
-| `app.js` | Countdown, lead capture, matching logic, ad attribution |
+| `app.js` | Countdown to the end of the sale, lead capture, matching logic, ad attribution |
 | `img/` | Logo and product photos pulled from generationhottubs.com |
 
 ## Before launch
@@ -37,7 +39,7 @@ Leads land in the Generation Hot Tubs sub-account (agency CNXTNS GROUP) through 
 
 ## Friday and Saturday appointments
 
-`appointment.html` books a Fri/Sat visit during the sale extension (through Saturday, Dec 5) and lands on `appointment-thank-you.html`, which shows the Factory Pass with the chosen day and time. It posts to its own GoHighLevel inbound webhook, `apptEndpoint` in `config.js`, as flat JSON: `first_name`, `last_name`, `full_name`, `phone` (+1 format), `email`, `visit_date`, `visit_time`, `notes`, `factory_pass_number`, `form_name`, `lead_source` and `tags` (both `FS-Ext-Appt`), `event`, `page_url`, `submitted_at`, plus the same ad tracking keys as the other forms. Ad tracking carries over from the landing page on its own, because `app.js` stores it in the browser on the first page. Days that have passed drop out of the day list automatically. To change the days or times, edit the two `<select>` lists in `appointment.html`.
+`appointment.html` books a Fri/Sat visit during the sale extension (through Saturday, Dec 5) and lands on `appointment-thank-you.html`, which shows a visit card with the chosen day and time. It posts to its own GoHighLevel inbound webhook, `apptEndpoint` in `config.js`, as flat JSON: `first_name`, `last_name`, `full_name`, `phone` (+1 format), `email`, `visit_date`, `visit_time`, `notes`, `form_name`, `lead_source` and `tags` (both `FS-Ext-Appt`), `event`, `page_url`, `submitted_at`, plus the same ad tracking keys as the other forms. Ad tracking carries over from the landing page on its own, because `app.js` stores it in the browser on the first page. Days that have passed drop out of the day list automatically. To change the days or times, edit the two `<select>` lists in `appointment.html`.
 
 ## Publishing on generationhottubs.com (WordPress)
 
@@ -51,11 +53,11 @@ The live pages are WordPress pages that use the **Elementor Canvas** template, e
 | Appointment (child) | `/factory-sale/appointment/` | `wp-bundles/appointment.txt` |
 | Appointment Thank You (grandchild) | `/factory-sale/appointment/thank-you/` | `wp-bundles/appointment-thank-you.txt` |
 
-After editing any page, styles or scripts, run `python3 build-wp.py`, then paste the new bundle over the page's Custom HTML block (or update it through the REST API) and purge LiteSpeed Cache. The bundles inline all CSS and JS, scope the CSS under `#ght` so the theme cannot restyle it, use the images already in the WordPress Media Library, and tag scripts so LiteSpeed does not minify or defer them.
+After editing any page, styles or scripts, run `python3 build-wp.py` (it also writes `ghl-bundles/*.html`, the same pages for a GoHighLevel Custom HTML/JS element, not yet tried inside GoHighLevel), then paste the new bundle over the page's Custom HTML block (or update it through the REST API) and purge LiteSpeed Cache. The bundles inline all CSS and JS, scope the CSS under `#ght` so the theme cannot restyle it, use the images already in the WordPress Media Library, and tag scripts so LiteSpeed does not minify or defer them.
 
 ## Sharing a review link
 
-`build-demo.py` combines the three pages into `demo.html` (and `demo-local.html` for opening on a laptop). One link, with the pages at `#home`, `#quiz` and `#thanks`. Rebuild it after editing any page:
+`build-demo.py` combines the five pages into `demo.html` (and `demo-local.html` for opening on a laptop). One link, with the pages at `#home`, `#quiz`, `#thanks`, `#appointment` and `#appt-thanks`. In the review build the appointment form sends no lead. Rebuild it after editing any page:
 
 ```bash
 python3 build-demo.py

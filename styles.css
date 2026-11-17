@@ -299,6 +299,7 @@ button { font: inherit; }
   font-weight: 800; font-size: var(--t-sm); letter-spacing: 0.06em; text-transform: uppercase;
 }
 .count .timer { display: flex; gap: 18px; font-variant-numeric: tabular-nums; }
+.count a { color: inherit; text-underline-offset: 3px; white-space: nowrap; }
 .count .timer b { font-family: var(--display); font-weight: 400; font-size: 1.9rem; line-height: 1; margin-right: 6px; }
 
 /* Section header pattern */
@@ -310,6 +311,16 @@ button { font: inherit; }
 .benefit .k { width: 34px; height: 34px; border-radius: 50%; background: var(--aqua); color: var(--white); display: grid; place-items: center; font-weight: 800; font-size: 0.85rem; }
 .benefit h3 { font-family: var(--body); font-weight: 800; font-size: 1.3rem; line-height: 1.15; }
 @media (max-width: 760px) { .benefits { grid-template-columns: 1fr; } }
+/* Offer section: benefits stacked beside the "Get my factory price" form */
+.benefits.stack { grid-template-columns: 1fr; }
+.benefits.stack .benefit { grid-template-columns: 34px minmax(0, 1fr); column-gap: 16px; row-gap: 6px; padding: 18px 20px; }
+.benefits.stack .benefit .k { grid-row: 1 / span 2; }
+.benefits.stack .benefit h3, .benefits.stack .benefit p { grid-column: 2; }
+.offer-grid { align-items: start; }
+.offer-side { display: grid; gap: 20px; min-width: 0; scroll-margin-top: 92px; }
+.visit-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 18px; font-size: var(--t-sm); font-weight: 600; }
+.visit-cta p { flex: 1 1 14rem; }
+.tub .price a { color: inherit; text-decoration-color: var(--aqua); text-underline-offset: 3px; }
 .offer-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
 @media (max-width: 880px) { .offer-grid { grid-template-columns: 1fr; } }
 
@@ -404,7 +415,9 @@ button { font: inherit; }
 .sched .row { display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; border-bottom: 2px solid var(--line); }
 .sched .row:last-child { border-bottom: 0; }
 .sched .row b { font-weight: 800; color: var(--ink); }
-.sched .row span { color: var(--aqua-deep); font-weight: 700; white-space: nowrap; }
+.sched .row { flex-wrap: wrap; }
+.sched .row span { color: var(--aqua-deep); font-weight: 700; }
+.sched .row span a { color: var(--ink); text-underline-offset: 3px; white-space: nowrap; }
 .addr { display: grid; gap: 6px; font-size: var(--t-sm); line-height: 1.5; margin-top: 20px; }
 .addr .big { font-family: var(--display); font-size: 1.7rem; line-height: 1.1; color: var(--ink); }
 .expect { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }

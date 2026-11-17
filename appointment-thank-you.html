@@ -18,7 +18,7 @@
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="Back to the Factory Sale page">
       <img src="img/Generation-Hot-Tub-Logo-Circle.png" alt="">
-      <span class="name">Generation Hot Tubs <small>Factory Sale</small></span>
+      <span class="name">Generation Hot Tubs <small>Factory Sale &middot; Through Dec 5</small></span>
     </a>
     <div class="actions">
       <a class="phone" data-ght-href="phoneHref" href="tel:+19314142908">Questions? <b data-ght="phone">931-414-2908</b></a>
@@ -28,11 +28,11 @@
 
 <main>
 
-  <!-- CONFIRMATION + PASS -->
+  <!-- CONFIRMATION + VISIT CARD -->
   <section class="ty-hero">
     <div class="wrap ty-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Visit requested &middot; <span id="pass-no-inline">Factory Pass</span></p>
+        <p class="eyebrow">Visit requested &middot; Factory pricing ends Saturday, Dec 5</p>
         <h1 class="h-display">Got it, we'll see you then.</h1>
         <p class="lede">Someone from Generation Hot Tubs will call to confirm your visit. Questions? Call <a data-ght-href="phoneHref" href="tel:+19314142908" data-ght="phone">931-414-2908</a>.</p>
         <div class="actions">
@@ -41,21 +41,21 @@
         </div>
       </div>
 
-      <div class="ticket" id="pass" aria-label="Your Factory Pass">
+      <div class="ticket" id="pass" aria-label="Your factory visit">
         <div class="t-head">
-          <span class="lbl">Generation Hot Tubs <b>Factory Pass</b></span>
+          <span class="lbl">Generation Hot Tubs <b>Factory Visit</b></span>
           <img src="img/Generation-Hot-Tub-Logo-Circle.png" alt="">
         </div>
         <div class="t-body">
-          <div class="f wide"><span class="l">Pass holder</span><span class="v" id="pass-name">Pass holder</span></div>
-          <div class="f"><span class="l">Your visit</span><span class="v" id="pass-date">Fri or Sat</span></div>
+          <div class="f wide"><span class="l">Name</span><span class="v" id="pass-name">Your visit</span></div>
+          <div class="f"><span class="l">Day</span><span class="v" id="pass-date">Fri or Sat</span></div>
           <div class="f"><span class="l">Arriving</span><span class="v" id="pass-time">As booked</span></div>
           <div class="f wide"><span class="l">Where</span><span class="v sm">300 Garfield Street<br>McMinnville, TN 37110</span></div>
         </div>
         <div class="t-foot">
-          <span class="stamp">Pass holder</span>
+          <span class="stamp">Requested</span>
           <span class="barcode" aria-hidden="true"></span>
-          <span>No. <span id="pass-no">GHT-1105-&bull;&bull;&bull;&bull;</span></span>
+          <span>Up to 40% off</span>
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@
       <div class="fin">
         <p class="eyebrow">Do this now &middot; About five minutes</p>
         <h2>Walk in already approved for financing.</h2>
-        <p>The people who get the tub they want are the ones who do not spend an hour at the financing desk. Apply now through GreenSky, our financing partner, and when you arrive you are choosing a tub, not filling out forms.</p>
+        <p>Apply now through GreenSky, our financing partner, and when you visit you are choosing a tub, not filling out forms.</p>
         <p class="fin-terms">Tap <b>Apply Now</b> in the GreenSky box to start. Subject to credit approval. Rather do it by phone? Call <span data-ght="phone">931-414-2908</span>.</p>
       </div>
       <div class="gs-slot">
@@ -88,7 +88,7 @@
         <div class="step">
           <span class="n done">Done</span>
           <h3>Your visit is requested</h3>
-          <p class="muted">We have your day and time. Screenshot your pass, or just give your name at the door.</p>
+          <p class="muted">We have your day and time. When you arrive, just give your name at the door.</p>
         </div>
         <div class="step">
           <span class="n">Next</span>
@@ -127,8 +127,6 @@
   set("pass-date", (appt.visit_date || "").replace(/^(\w{3})\w*day, /, "$1, "));
   set("pass-time", appt.visit_time);
   set("step-day", appt.visit_date);
-  set("pass-no", appt.passNumber);
-  set("pass-no-inline", appt.passNumber);
 
   // Google Calendar link for the chosen day and hour (Central Standard Time)
   if (appt.date_iso && appt.hour) {
@@ -138,7 +136,7 @@
     cal.href = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
       "&text=" + encodeURIComponent("Generation Hot Tubs factory visit") +
       "&dates=" + utc(h) + "/" + utc(h + 1) +
-      "&details=" + encodeURIComponent("Factory Sale pricing, up to 40% off. Factory Pass " + (appt.passNumber || "") + ". " + (C.phone || "")) +
+      "&details=" + encodeURIComponent("Factory Sale pricing, up to 40% off. " + (C.phone || "")) +
       "&location=" + encodeURIComponent((C.address1 || "300 Garfield Street") + ", " + (C.address2 || "McMinnville, TN 37110"));
     cal.hidden = false;
   }
