@@ -5,16 +5,17 @@
 window.GHT = {
   // Event
   eventName: "Generation Hot Tubs Factory Sale",
-  eventStart: "2026-11-05T09:00:00-06:00", // Doors open, Central Time (CST on Nov 5)
-  eventEnd: "2026-11-07T16:00:00-06:00",
-  dateLine: "November 5, 6 and 7, 2026",
-  // CONFIRM WITH KEVIN: sale hours (normal business hours are Mon to Thu 8 to 5)
+  // Factory Sale pricing is honored on orders placed through this moment (Central Time).
+  eventEnd: "2026-12-05T23:59:59-06:00",
+  endLine: "Ends Saturday, Dec 5",
+  // Each row: [days, hours, show the "Book a Fri/Sat visit" link beside it]
   hours: [
-    ["Thursday, Nov 5", "9 am to 6 pm"],
-    ["Friday, Nov 6", "9 am to 6 pm"],
-    ["Saturday, Nov 7", "9 am to 4 pm"]
+    ["Monday to Thursday", "7 am to 5 pm"],
+    ["Friday and Saturday", "By appointment", true],
+    ["Thanksgiving Day, Nov 26", "Closed"]
   ],
-  priceSheetDay: "Wednesday, November 4",
+  appointmentUrl: "https://generationhottubs.com/factory-sale/appointment/",
+  appointmentLabel: "Book a Fri/Sat visit",
 
   // Location and contact
   address1: "300 Garfield Street",

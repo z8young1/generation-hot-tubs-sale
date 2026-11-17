@@ -28,7 +28,6 @@ home, quiz, thanks = relink(home), relink(quiz), relink(thanks)
 # both pages have a #financing section; give the landing page's its own id in the demo
 assert home.count('id="financing"') == 1 and home.count('href="#financing"') == 1
 home = home.replace('id="financing"', 'id="home-financing"').replace('href="#financing"', 'href="#home-financing"')
-thanks = thanks.replace('class="ticket" id="pass"', 'class="ticket" id="ty-pass"')
 
 quiz_js = quiz_scripts[0]
 quiz_js = quiz_js.replace(
@@ -42,7 +41,7 @@ thanks_js = "window.renderThanks = function () {" + thanks_js[len("(function () 
 
 router = """
 (function () {
-  var titles = { home: "Generation Factory Sale", quiz: "Find Your Perfect Hot Tub", thanks: "Your Factory Pass" };
+  var titles = { home: "Generation Factory Sale", quiz: "Find Your Perfect Hot Tub", thanks: "We Got Your Request" };
   var views = document.querySelectorAll("[data-view]");
   function show() {
     var h = (location.hash || "#home").replace("#", "");
